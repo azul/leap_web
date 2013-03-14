@@ -18,14 +18,20 @@ development:
   <<: *cert_options
   admins: [admin, admin2]
   domain: develop.me
+  title: Leap Web Development
+  meta_description: Development Version of the Leap Web Service
 
 test:
   <<: *dev_ca
   <<: *cert_options
   admins: [admin, admin2]
   domain: test.me
+  title: Leap Web Testing
+  meta_description: Test the Leap Web Service
 
 production:
   <<: *cert_options
   admins: []
   domain: deploy.me
+  title: Leap Web
+  meta_description: LEAP Encryption Access Project - Web App
