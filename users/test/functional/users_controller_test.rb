@@ -19,40 +19,21 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "user can see user" do
-    user = find_record :user,
-      :email => nil,
-      :email_forward => nil,
-      :email_aliases => [],
-      :created_at => Time.now,
-      :updated_at => Time.now,
-      :most_recent_tickets => []
+    user = find_record :user
     login user
     get :show, :id => user.id
     assert_response :success
   end
 
   test "admin can see other user" do
-    user = find_record :user,
-      :email => nil,
-      :email_forward => nil,
-      :email_aliases => [],
-      :created_at => Time.now,
-      :updated_at => Time.now,
-      :most_recent_tickets => []
+    user = find_record :user
     login :is_admin? => true
     get :show, :id => user.id
     assert_response :success
-
   end
 
   test "user cannot see other user" do
-    user = find_record :user,
-      :email => nil,
-      :email_forward => nil,
-      :email_aliases => [],
-      :created_at => Time.now,
-      :updated_at => Time.now,
-      :most_recent_tickets => []
+    user = find_record :user
     login
     get :show, :id => user.id
     assert_response :redirect
@@ -84,9 +65,7 @@ class UsersControllerTest < ActionController::TestCase
     user = User.new(user_attribs)
     User.expects(:create).with(user_attribs).returns(user)
 
-
     post :create, :user => user_attribs, :format => :json
-
 
     assert_nil session[:user_id]
     assert_json_response user
@@ -140,7 +119,6 @@ class UsersControllerTest < ActionController::TestCase
 
     assert_response :redirect
     assert_access_denied
-
   end
 
   test "admin can destroy user" do
