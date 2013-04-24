@@ -1,7 +1,3 @@
-//
-// DEPRECATED - please use by_handle instead. Does the same thing.
-//
-
 function(doc) {
   if (doc.type != 'User') {
     return;

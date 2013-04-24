@@ -6,7 +6,7 @@ class EmailAliasTest < ActiveSupport::TestCase
     @user = FactoryGirl.build :user
     @alias = "valid_alias"
     # make sure no existing records are in the way...
-    User.find_by_login_or_alias(@alias).try(:destroy)
+    User.find_by_handle(@alias).try(:destroy)
   end
 
   test "no email aliases set in the beginning" do
@@ -52,7 +52,7 @@ class EmailAliasTest < ActiveSupport::TestCase
   test "find user by email alias" do
     @user.email_aliases.build :email => @alias
     assert @user.save
-    assert_equal @user, User.find_by_login_or_alias(@alias)
+    assert_equal @user, User.find_by_handle(@alias)
     assert_equal @user, User.find_by_alias(@alias)
     assert_nil User.find_by_login(@alias)
   end

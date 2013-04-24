@@ -34,7 +34,7 @@ class LocalEmail
   protected
 
   def unique_on_server
-    has_email = User.find_by_login_or_alias(username)
+    has_email = User.find_by_handle(username)
     if has_email && has_email != self.casted_by
       errors.add :username, "has already been taken"
     end

@@ -119,7 +119,7 @@ class User < CouchRest::Model::Base
   ##
 
   def login_is_unique_alias
-    has_alias = User.find_by_login_or_alias(username)
+    has_alias = User.find_by_handle(username)
     return if has_alias.nil?
     if has_alias != self
       errors.add(:login, "has already been taken")
