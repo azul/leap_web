@@ -84,7 +84,7 @@ class AccountFlowTest < RackTest
       identity.destroy
     end
     put "http://api.lvh.me:3000/1/users/" + @user.id + '.json', :user => {:public_key => test_public_key, :login => new_login}, :format => :json
-    @user.reload
+    @user = User.find(@user.id) # so the identity is reloaded
     assert last_response.successful?
     assert_equal test_public_key, @user.public_key
     assert_equal new_login, @user.login
