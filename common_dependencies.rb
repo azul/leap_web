@@ -15,6 +15,6 @@ group :test, :development do
   gem 'faker'
   gem 'factory_girl_rails'
   gem 'thin'
-  gem 'quiet_assets'
+#  gem 'quiet_assets'
 end
 
