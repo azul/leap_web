@@ -42,9 +42,9 @@ module CouchRest
 
     end
 
-    class Migrate
-      def self.load_all_models_with_engines
-        self.load_all_models_without_engines
+    module Migrate
+      def load_all_models_with_engines
+        load_all_models_without_engines
         return unless defined?(Rails)
         Dir[Rails.root + 'app/models/**/*.rb'].each do |path|
           require path
@@ -54,18 +54,18 @@ module CouchRest
         end
       end
 
-      def self.all_models_and_proxies
+      def all_models_and_proxies
         callbacks = migrate_each_model(find_models)
         callbacks += migrate_each_proxying_model(find_proxying_models)
         cleanup(callbacks)
       end
 
-
-
-      class << self
-        alias_method_chain :load_all_models, :engines
+      # we extend self... this is kind of odd...
+      def self.extended(object)
+        class << object
+          alias_method_chain :load_all_models, :engines
+        end
       end
-
     end
   end
 
