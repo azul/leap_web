@@ -11,28 +11,28 @@ class IdentityTest < ActiveSupport::TestCase
     id = Identity.for(@user)
     assert_equal @user.email_address, id.address
     assert_equal @user.email_address, id.destination
-    assert_equal @user, id.user
+    assert_equal @user.id, id.user_id
   end
 
   test "add alias" do
     id = Identity.for @user, address: alias_name
     assert_equal LocalEmail.new(alias_name), id.address
     assert_equal @user.email_address, id.destination
-    assert_equal @user, id.user
+    assert_equal @user.id, id.user_id
   end
 
   test "add forward" do
     id = Identity.for @user, destination: forward_address
     assert_equal @user.email_address, id.address
     assert_equal Email.new(forward_address), id.destination
-    assert_equal @user, id.user
+    assert_equal @user.id, id.user_id
   end
 
   test "forward alias" do
     id = Identity.for @user, address: alias_name, destination: forward_address
     assert_equal LocalEmail.new(alias_name), id.address
     assert_equal Email.new(forward_address), id.destination
-    assert_equal @user, id.user
+    assert_equal @user.id, id.user_id
   end
 
   test "prevents duplicates" do

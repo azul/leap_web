@@ -10,8 +10,6 @@ module StubRecordHelper
   def find_record(factory, record_or_attribs_hash = {})
     record = stub_record factory, record_or_attribs_hash, true
     klass = record.class
-    # find is just an alias for get with CouchRest Model
-    klass.stubs(:get).with(record.to_param.to_s).returns(record)
     klass.stubs(:find).with(record.to_param.to_s).returns(record)
     return record
   end

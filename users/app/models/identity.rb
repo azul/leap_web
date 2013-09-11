@@ -74,7 +74,7 @@ class Identity < CouchRest::Model::Base
 
   def alias_available
     same = Identity.find_by_address(address)
-    if same && same.user != self.user
+    if same && same.user_id != self.user_id
       errors.add :base, "This email has already been taken"
     end
   end
