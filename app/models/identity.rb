@@ -43,7 +43,19 @@ class Identity < CouchRest::Model::Base
         }
       }
     EOJS
-
+    view :cert_fingerprints,
+      map: <<-EOJS
+      function(doc) {
+        if (doc.type != 'Identity') {
+          return;
+        }
+        if (typeof doc.cert_fingerprints === "object") {
+          for (var fp in doc.cert_fingerprints) {
+            emit(doc.cert_fingerprints[fp], fp);
+          }
+        }
+      }
+    EOJS
   end
 
   def self.for(user, attributes = {})
