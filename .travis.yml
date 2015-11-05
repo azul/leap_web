@@ -1,10 +1,12 @@
 services:
   - couchdb
+rvm:
+  - 1.9.3
+  - 2.1.5
 notifications:
   email: false
 before_script:
   - "rm .ruby-version"
-  - "mv test/travis/ruby-version .ruby-version"
   - "test/travis/setup_couch.sh"
   - "mv test/config/couchdb.admin.yml config/couchdb.admin.yml"
   - "mv test/config/couchdb.yml config/couchdb.yml"
